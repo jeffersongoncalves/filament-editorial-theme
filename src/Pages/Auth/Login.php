@@ -2,9 +2,7 @@
 
 namespace JeffersonGoncalves\FilamentEditorialTheme\Pages\Auth;
 
-use Filament\Auth\Pages\Login as BaseLogin;
-
-class Login extends BaseLogin
+class Login extends \Filament\Auth\Pages\Login
 {
     protected string $view = 'filament-editorial-theme::auth.login';
 
