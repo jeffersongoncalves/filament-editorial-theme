@@ -65,23 +65,31 @@ overrides below the import. Then build assets normally with Vite.
 
 ## Terminal login (opt-in)
 
-To use the terminal-style login screen, extend Filament's Login page in your app
-and apply the trait:
+Point your panel at the bundled Login page:
 
 ```php
-namespace App\Filament\Pages\Auth;
+use JeffersonGoncalves\FilamentEditorialTheme\Pages\Auth\Login;
 
-class Login extends \Filament\Auth\Pages\Login
+$panel->login(Login::class);
+```
+
+If you need to customize the login behavior, extend the bundled page in
+your application:
+
+```php
+namespace App\Filament\Admin\Pages\Auth;
+
+class Login extends \JeffersonGoncalves\FilamentEditorialTheme\Pages\Auth\Login
 {
-    use \JeffersonGoncalves\FilamentEditorialTheme\Concerns\HasTerminalLogin;
+    protected function getCredentialsFromFormData(array $data): array
+    {
+        // your customization
+        return parent::getCredentialsFromFormData($data);
+    }
 }
 ```
 
-Then point the panel at it:
-
-```php
-$panel->login(\App\Filament\Pages\Auth\Login::class);
-```
+Then point the panel at your subclass: `$panel->login(\App\Filament\Admin\Pages\Auth\Login::class);`
 
 ## Gotchas
 
