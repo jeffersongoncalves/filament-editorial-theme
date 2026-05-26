@@ -2,17 +2,19 @@
 
 namespace JeffersonGoncalves\FilamentEditorialTheme;
 
+use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Filament\Support\Colors\Color;
+use Illuminate\Contracts\Support\Htmlable;
 
 class EditorialThemePlugin implements Plugin
 {
     protected array $primaryColor = [];
 
-    protected ?string $logo = null;
+    protected string|Htmlable|Closure|null $logo = null;
 
-    protected ?string $brandName = null;
+    protected string|Closure|null $brandName = null;
 
     protected bool $terminalLogin = false;
 
@@ -51,14 +53,14 @@ class EditorialThemePlugin implements Plugin
         return $this;
     }
 
-    public function logo(string $logo): static
+    public function logo(string|Htmlable|Closure|null $logo): static
     {
         $this->logo = $logo;
 
         return $this;
     }
 
-    public function brandName(string $name): static
+    public function brandName(string|Closure $name): static
     {
         $this->brandName = $name;
 
