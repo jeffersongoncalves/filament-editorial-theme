@@ -1,0 +1,12 @@
+/.idea
+/.vscode
+/build
+/vendor
+/node_modules
+composer.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.phpunit.cache
+.phpunit.result.cache
+phpstan-baseline.neon
