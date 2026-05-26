@@ -1,6 +1,7 @@
 @php
+    $plugin = \JeffersonGoncalves\FilamentEditorialTheme\EditorialThemePlugin::get();
     $isProduction = config('app.env') === 'production';
-    $version = config('filament-editorial-theme.sidebar_status.version');
+    $version = $plugin->getSidebarStatusVersion();
 @endphp
 
 <div class="editorial-sidebar-status px-6 py-4 mt-auto" style="border-top: 1px dashed var(--color-ink-700);">
@@ -10,7 +11,7 @@
         <span>{{ $isProduction ? __('filament-editorial-theme::status.production') : __('filament-editorial-theme::status.local') }}</span>
         @if ($version)
             <span style="color: var(--color-ink-500);">·</span>
-            <span style="color: var(--color-ink-500);">v{{ $version }}</span>
+            <span style="color: var(--color-ink-500);">v{!! $version !!}</span>
         @endif
     </div>
 </div>

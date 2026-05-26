@@ -43,15 +43,6 @@ return [
     | per-panel granularity. This entry only controls the intro animation key.
     |
     */
-    'footer' => [
-        'copyright' => null,
-        'right' => null,
-    ],
-
-    'sidebar_status' => [
-        'version' => null,
-    ],
-
     'login' => [
         'session_key' => 'editorial-login-intro-seen',
         'type_speed_ms' => 55,

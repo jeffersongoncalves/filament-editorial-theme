@@ -52,7 +52,13 @@ class EditorialThemePlugin implements Plugin
 
     protected bool $footer = true;
 
+    protected string|Htmlable|Closure|null $footerCopyright = null;
+
+    protected string|Htmlable|Closure|null $footerRight = null;
+
     protected bool $sidebarStatus = true;
+
+    protected string|Htmlable|Closure|null $sidebarStatusVersion = null;
 
     protected bool $externalLinks = true;
 
@@ -126,9 +132,30 @@ class EditorialThemePlugin implements Plugin
         return $this;
     }
 
+    public function footerCopyright(string|Htmlable|Closure|null $value): static
+    {
+        $this->footerCopyright = $value;
+
+        return $this;
+    }
+
+    public function footerRight(string|Htmlable|Closure|null $value): static
+    {
+        $this->footerRight = $value;
+
+        return $this;
+    }
+
     public function sidebarStatus(bool $enabled = true): static
     {
         $this->sidebarStatus = $enabled;
+
+        return $this;
+    }
+
+    public function sidebarStatusVersion(string|Htmlable|Closure|null $value): static
+    {
+        $this->sidebarStatusVersion = $value;
 
         return $this;
     }
@@ -138,6 +165,26 @@ class EditorialThemePlugin implements Plugin
         $this->externalLinks = $enabled;
 
         return $this;
+    }
+
+    public function getFooterCopyright(): string|Htmlable|null
+    {
+        return $this->resolveValue($this->footerCopyright);
+    }
+
+    public function getFooterRight(): string|Htmlable|null
+    {
+        return $this->resolveValue($this->footerRight);
+    }
+
+    public function getSidebarStatusVersion(): string|Htmlable|null
+    {
+        return $this->resolveValue($this->sidebarStatusVersion);
+    }
+
+    protected function resolveValue(string|Htmlable|Closure|null $value): string|Htmlable|null
+    {
+        return $value instanceof Closure ? $value() : $value;
     }
 
     public function fonts(bool $local = true): static
