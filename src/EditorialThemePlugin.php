@@ -5,7 +5,10 @@ namespace JeffersonGoncalves\FilamentEditorialTheme;
 use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Facades\View;
+use JeffersonGoncalves\FilamentEditorialTheme\Pages\Auth\Login;
 
 class EditorialThemePlugin implements Plugin
 {
@@ -172,6 +175,16 @@ class EditorialThemePlugin implements Plugin
 
         if ($this->brandName !== null) {
             $panel->brandName($this->brandName);
+        }
+
+        if ($this->terminalLogin) {
+            $panel
+                ->login(Login::class)
+                ->renderHook(
+                    PanelsRenderHook::BODY_START,
+                    fn () => View::make('filament-editorial-theme::partials.login-preview'),
+                    scopes: [Login::class],
+                );
         }
     }
 
