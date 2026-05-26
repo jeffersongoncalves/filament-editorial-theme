@@ -60,8 +60,21 @@ public function panel(Panel $panel): Panel
 ## Theme CSS
 
 The `vendor:publish --tag=filament-editorial-theme-stubs` command writes
-`resources/css/filament/admin/theme.css` that imports the package CSS. Add your
-overrides below the import. Then build assets normally with Vite.
+`resources/css/filament/admin/theme.css` that:
+
+1. `@import`s Filament's base theme.
+2. `@import`s this package's theme CSS from `vendor/`.
+3. `@source`s the package's blade partials so Tailwind v4 keeps the utility
+   classes used inside them (without this line, `flex items-center px-6` and
+   similar utilities used by the bundled footer / sidebar-status / login
+   partials would be purged from the build).
+
+Add your overrides below the import. Then build assets normally with Vite
+(`npm run build` or `npm run dev`).
+
+If you already have a `theme.css` and don't want to overwrite it, copy the
+two `@import`s and the `@source 'vendor/jeffersongoncalves/...'` line into
+your existing file manually.
 
 ## Terminal login (opt-in)
 
