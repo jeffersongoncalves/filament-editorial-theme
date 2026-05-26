@@ -205,7 +205,7 @@ html:not(.dark) .fi-body {
     --text-regular:            var(--color-paper-800);
     --text-muted:              var(--color-paper-600);
     --text-dim:                var(--color-paper-500);
-    --text-on-accent:          #fff;
+    --text-on-accent:          var(--color-ink-950);
 
     --border-soft:             var(--color-paper-200);
     --border-strong:           var(--color-paper-300);
@@ -459,6 +459,8 @@ html:not(.dark) .fi-body {
     border-color: var(--border-hover) !important;
 }
 
+/* KeyValue table action column — give the trash button breathing room
+   so it doesn't bleed into the table's right border */
 .fi-fo-key-value-table th.fi-has-action,
 .fi-fo-key-value-table td.fi-has-action {
     width: 1%;
@@ -467,6 +469,10 @@ html:not(.dark) .fi-body {
     text-align: center;
 }
 
+/* Danger / Success / Warning buttons — editorial tinted variants
+   Filament default is saturated solid; override to match paper aesthetic.
+   Padding + radius scoped to tinted icon-btns so plain icon-btns elsewhere
+   keep their default sizing untouched. */
 .fi-btn-color-danger,
 .fi-icon-btn-color-danger,
 .fi-btn.fi-color-danger,
@@ -526,6 +532,7 @@ html:not(.dark) .fi-body {
     border-color: var(--accent) !important;
 }
 
+/* Force SVG icon color to match button — Filament may apply text-white inline */
 .fi-btn-color-danger svg,
 .fi-icon-btn-color-danger svg,
 .fi-btn.fi-color-danger svg,
@@ -544,6 +551,9 @@ html:not(.dark) .fi-body {
 .fi-icon-btn.fi-color-warning svg {
     color: var(--accent-strong) !important;
 }
+/* Solid primary buttons (no .fi-outlined) get the dark on-accent text/icon
+   color because their bg is the amber accent. Outlined-primary keeps text
+   color (handled below) so the icon doesn't go ink-950 on a transparent bg. */
 .fi-btn-color-primary:not(.fi-outlined) svg,
 .fi-icon-btn-color-primary:not(.fi-outlined) svg,
 .fi-btn.fi-color-primary:not(.fi-outlined) svg,
@@ -551,6 +561,9 @@ html:not(.dark) .fi-body {
     color: var(--text-on-accent) !important;
 }
 
+/* Outlined buttons: icon inherits text color (currentColor) instead of
+   Filament default `var(--color-600)` so amber-outlined icon matches the
+   text-700/300 used by the button label. */
 .fi-btn.fi-outlined.fi-color svg,
 .fi-icon-btn.fi-outlined.fi-color svg {
     color: currentColor !important;
@@ -572,6 +585,9 @@ html:not(.dark) .fi-body {
     transition: border-color 120ms, box-shadow 120ms;
 }
 
+
+/* When input is inside .fi-input-wrp (icon/prefix wrapper), the wrapper owns the
+   border — strip the inner input border to avoid double-border */
 .fi-input-wrp .fi-input,
 .fi-input-wrp input,
 .fi-input-wrp textarea,
@@ -747,15 +763,22 @@ html::-webkit-scrollbar-thumb:hover,
    LAYOUT FIXES · sidebar morph, scrollbar gutter, main margin
    ============================================================ */
 
-/* FIX 2 — Override Filament's "transition: all" on .fi-main-ctn. */
+/* FIX 2 — Override Filament's "transition: all" on .fi-main-ctn.
+   Allow opacity + width animations but NOT margin — kills horizontal slide
+   caused by Livewire morphing re-triggering margin transitions. */
 .fi-main-ctn {
     transition-property: opacity, width !important;
     transition-duration: 0.15s !important;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* FIX 1 + FIX 3 — desktop-only (>= lg breakpoint, 1024px). */
+/* FIX 1 + FIX 3 — desktop-only (>= lg breakpoint, 1024px).
+   On mobile Filament renders the sidebar as a slide-in drawer; pinning the
+   wrapper to 81px on small screens would steal layout space without showing
+   the icons and shove the topbar hamburger off-screen. */
 @media (min-width: 1024px) {
+    /* FIX 1 — Livewire wrapper around the sidebar — fixed positioning
+       min-width prevents collapse during Livewire morphing when :has() loses match */
     div:has(> aside.fi-sidebar) {
         display: flex !important;
         position: fixed !important;
@@ -766,6 +789,8 @@ html::-webkit-scrollbar-thumb:hover,
         min-width: 81px;
     }
 
+    /* FIX 3 — Push main content right when sidebar open (320px) or collapsed (81px).
+       Scoped via body class so guest/login pages without sidebar are unaffected. */
     .fi-body-has-sidebar-collapsible-on-desktop .fi-main-ctn,
     .fi-body-has-sidebar-fully-collapsible-on-desktop .fi-main-ctn {
         margin-inline-start: 81px !important;
@@ -784,7 +809,10 @@ html {
     overflow-y: scroll;
 }
 
-/* FIX 6 — Sidebar nav scrolls independently. */
+/* FIX 6 — Sidebar nav scrolls independently.
+   min-height:0 on flex child lets it shrink past intrinsic content height so
+   overflow:auto actually clips. Without it, nav expands and shoves
+   editorial-sidebar-status below viewport — footer appears to scroll. */
 .fi-sidebar-nav {
     flex: 1 1 auto !important;
     min-height: 0 !important;
@@ -792,16 +820,20 @@ html {
     overflow-x: hidden;
 }
 
-/* FIX 7 — Pin sidebar footer to bottom regardless of nav content height. */
+/* FIX 7 — Pin sidebar footer to bottom regardless of nav content height.
+   Sidebar is flex-column; mt-auto + flex-shrink:0 keeps the status block
+   anchored to the bottom edge while nav scrolls above it. */
 .fi-sidebar .editorial-sidebar-status {
     flex-shrink: 0;
     margin-top: auto;
 }
 
+/* Hide sidebar status block when sidebar is collapsed (no `fi-sidebar-open` class) */
 .fi-sidebar:not(.fi-sidebar-open) .editorial-sidebar-status {
     display: none !important;
 }
 
+/* Brand logo wrapper */
 .site-brand {
     display: flex !important;
     flex-direction: row !important;
@@ -816,7 +848,7 @@ html {
 }
 
 /* ============================================================
-   LOGIN PAGE · preview blur + terminal central (opt-in)
+   LOGIN PAGE · preview blur homepage + terminal central
    ============================================================ */
 .fi-simple-layout {
     max-width: none !important;
@@ -825,6 +857,7 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
+    /* Always dark scrim — login aesthetic is terminal-dark regardless of admin theme */
     background: rgba(11, 10, 9, 0.55) !important;
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
@@ -838,6 +871,7 @@ html {
     display: none !important;
 }
 
+/* Kill Filament's simple-main background fade — let preview show through */
 .fi-simple-main,
 .fi-simple-main-ctn,
 .fi-simple-page,
@@ -848,6 +882,8 @@ html {
     transition: none !important;
 }
 
+/* Login preview · ALWAYS rendered dark (site public has no light variant).
+   Heavy filter darkening + overlay covers light-mode bleed-through. */
 .login-preview-bg {
     position: fixed;
     inset: 0;
