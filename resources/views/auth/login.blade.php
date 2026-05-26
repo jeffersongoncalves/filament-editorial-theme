@@ -49,21 +49,23 @@
 
     @push('scripts')
         <script>
+            // No-op Alpine stubs for site components inlined into the login preview.
+            // Prevents ReferenceErrors from leaking into the admin console.
             document.addEventListener('alpine:init', () => {
-                const noop = () => ({ init() {} });
-                if (!window.Alpine) return;
-                ['stickyHeader','terminalTyping','countUp','heatmap','markdownCopy'].forEach((name) => {
-                    try { window.Alpine.data(name, noop); } catch (e) {}
-                });
+                window.Alpine.data('stickyHeader',    () => ({ scrolled: false, init() {} }));
+                window.Alpine.data('terminalTyping',  () => ({ typed: '', typingDone: false, init() {} }));
+                window.Alpine.data('countUp',         () => ({ stats: {}, init() {} }));
+                window.Alpine.data('heatmap',         () => ({ cells: [], init() {} }));
+                window.Alpine.data('markdownCopy',    () => ({ init() {} }));
             });
         </script>
 
         <script>
             (function () {
-                const TYPE_SPEED = {{ config('filament-editorial-theme.login.type_speed_ms', 55) }};
-                const PAUSE_AFTER = {{ config('filament-editorial-theme.login.pause_after_ms', 320) }};
-                const START_DELAY = {{ config('filament-editorial-theme.login.start_delay_ms', 1500) }};
-                const SEEN_KEY = '{{ config('filament-editorial-theme.login.session_key', 'editorial-login-intro-seen') }}';
+                const TYPE_SPEED = 55;
+                const PAUSE_AFTER = 320;
+                const START_DELAY = 1500;
+                const SEEN_KEY = 'editorial-login-intro-seen';
 
                 function typeInto(el, text, speed) {
                     return new Promise((resolve) => {
@@ -113,6 +115,7 @@
 
                     if (!line1 || !line2 || !line3) return;
 
+                    // Fast-path: skip intro if user already saw it this session
                     let seen = false;
                     try { seen = sessionStorage.getItem(SEEN_KEY) === '1'; } catch (e) {}
                     if (seen) {
@@ -120,6 +123,7 @@
                         return;
                     }
 
+                    // Reset
                     line1.textContent = '';
                     line2.textContent = '';
                     line3.textContent = '';
@@ -160,6 +164,7 @@
                     run();
                 }
 
+                // Re-reveal after Livewire morph (validation failure round-trip)
                 document.addEventListener('livewire:navigated', revealForm);
                 document.addEventListener('livewire:initialized', () => {
                     if (window.Livewire && window.Livewire.hook) {
