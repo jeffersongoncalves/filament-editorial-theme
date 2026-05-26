@@ -5,12 +5,41 @@ namespace JeffersonGoncalves\FilamentEditorialTheme;
 use Closure;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use Filament\Support\Colors\Color;
 use Illuminate\Contracts\Support\Htmlable;
 
 class EditorialThemePlugin implements Plugin
 {
+    public const PRIMARY = [
+        50 => '#FFFBEB',
+        100 => '#FEF3C7',
+        200 => '#FDE68A',
+        300 => '#FCD34D',
+        400 => '#FBBF24',
+        500 => '#F59E0B',
+        600 => '#D97706',
+        700 => '#B45309',
+        800 => '#92400E',
+        900 => '#78350F',
+        950 => '#451A03',
+    ];
+
+    public const GRAY = [
+        50 => '#F8F5EE',
+        100 => '#F0EBDF',
+        200 => '#D9D2C5',
+        300 => '#B8B0A4',
+        400 => '#8B8377',
+        500 => '#5C5349',
+        600 => '#3D362F',
+        700 => '#2A2620',
+        800 => '#1F1B17',
+        900 => '#13110E',
+        950 => '#0B0A09',
+    ];
+
     protected array $primaryColor = [];
+
+    protected array $grayColor = [];
 
     protected string|Htmlable|Closure|null $logo = null;
 
@@ -49,6 +78,13 @@ class EditorialThemePlugin implements Plugin
     public function primaryColor(array $color): static
     {
         $this->primaryColor = $color;
+
+        return $this;
+    }
+
+    public function grayColor(array $color): static
+    {
+        $this->grayColor = $color;
 
         return $this;
     }
@@ -126,7 +162,8 @@ class EditorialThemePlugin implements Plugin
     public function register(Panel $panel): void
     {
         $panel->colors([
-            'primary' => $this->primaryColor !== [] ? $this->primaryColor : Color::Amber,
+            'primary' => $this->primaryColor !== [] ? $this->primaryColor : self::PRIMARY,
+            'gray' => $this->grayColor !== [] ? $this->grayColor : self::GRAY,
         ]);
 
         if ($this->logo !== null) {
