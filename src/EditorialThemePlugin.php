@@ -50,6 +50,12 @@ class EditorialThemePlugin implements Plugin
 
     protected bool $terminalLogin = false;
 
+    protected bool $footer = true;
+
+    protected bool $sidebarStatus = true;
+
+    protected bool $externalLinks = true;
+
     protected bool $fontsLocal = true;
 
     protected int $scrollbarSize = 6;
@@ -109,6 +115,27 @@ class EditorialThemePlugin implements Plugin
     public function terminalLogin(bool $enabled = true): static
     {
         $this->terminalLogin = $enabled;
+
+        return $this;
+    }
+
+    public function footer(bool $enabled = true): static
+    {
+        $this->footer = $enabled;
+
+        return $this;
+    }
+
+    public function sidebarStatus(bool $enabled = true): static
+    {
+        $this->sidebarStatus = $enabled;
+
+        return $this;
+    }
+
+    public function externalLinks(bool $enabled = true): static
+    {
+        $this->externalLinks = $enabled;
 
         return $this;
     }
@@ -185,6 +212,27 @@ class EditorialThemePlugin implements Plugin
                     fn () => View::make('filament-editorial-theme::partials.login-preview'),
                     scopes: [Login::class],
                 );
+        }
+
+        if ($this->footer) {
+            $panel->renderHook(
+                PanelsRenderHook::FOOTER,
+                fn () => View::make('filament-editorial-theme::partials.footer'),
+            );
+        }
+
+        if ($this->sidebarStatus) {
+            $panel->renderHook(
+                PanelsRenderHook::SIDEBAR_FOOTER,
+                fn () => View::make('filament-editorial-theme::partials.sidebar-status'),
+            );
+        }
+
+        if ($this->externalLinks) {
+            $panel->renderHook(
+                PanelsRenderHook::BODY_END,
+                fn () => View::make('filament-editorial-theme::partials.external-links'),
+            );
         }
     }
 
