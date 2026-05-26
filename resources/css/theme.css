@@ -119,6 +119,8 @@
     --color-danger-500: #E26B5C;
 }
 
+@layer components {
+
 /* ============================================================
    SEMANTIC TOKENS · Dark scheme (default)
    ============================================================ */
@@ -1049,3 +1051,5 @@ html {
 @media (prefers-reduced-motion: reduce) {
     .login-preview-frame { animation: none; }
 }
+
+} /* end @layer components */
