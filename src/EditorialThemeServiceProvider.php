@@ -12,7 +12,8 @@ class EditorialThemeServiceProvider extends PackageServiceProvider
         $package
             ->name('filament-editorial-theme')
             ->hasConfigFile('filament-editorial-theme')
-            ->hasViews('filament-editorial-theme');
+            ->hasViews('filament-editorial-theme')
+            ->hasTranslations();
     }
 
     public function packageRegistered(): void
