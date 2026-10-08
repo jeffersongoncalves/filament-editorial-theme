@@ -113,3 +113,9 @@ it('spaces the after-form hook output only when there is some', function () {
 
     Livewire::test(Login::class)->assertSeeHtml('<div class="login-form-after">dev-logins</div>');
 });
+
+it('shows the terminal lines right away, without a typewriter intro', function () {
+    Livewire::test(Login::class)
+        ->assertSee(__('filament-editorial-theme::login.whoami_unauth'))
+        ->assertDontSeeHtml('data-typewriter');
+});
