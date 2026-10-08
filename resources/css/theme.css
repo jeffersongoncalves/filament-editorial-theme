@@ -948,10 +948,6 @@ html:not(.dark) .fi-simple-layout {
     animation: login-caret 900ms steps(1) infinite;
 }
 
-.login-terminal-form {
-    opacity: 0;
-}
-
 .login-preview-scrim {
     position: absolute; inset: 0;
     background: transparent;
