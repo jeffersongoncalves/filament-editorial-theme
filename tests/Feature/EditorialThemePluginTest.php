@@ -1,6 +1,8 @@
 <?php
 
 use Filament\Facades\Filament;
+use Filament\FontProviders\LocalFontProvider;
+use Filament\Panel;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
 use JeffersonGoncalves\FilamentEditorialTheme\EditorialThemePlugin;
@@ -84,4 +86,19 @@ it('renders the login form hooks plugins rely on', function () {
     Livewire::test(Login::class)
         ->assertSee('hook-before-form')
         ->assertSee('hook-after-form');
+});
+
+it('registers the bundled fonts on the panel without a CDN link', function () {
+    $panel = Filament::getPanel('test');
+
+    expect($panel->getFontFamily())->toBe('DM Sans')
+        ->and($panel->getFontProvider())->toBe(LocalFontProvider::class)
+        ->and((string) $panel->getFontHtml())->not->toContain('<link');
+});
+
+it('leaves the panel fonts alone with fonts(false)', function () {
+    $panel = (new Panel)->id('other');
+    EditorialThemePlugin::make()->fonts(false)->register($panel);
+
+    expect($panel->getFontFamily())->not->toBe('DM Sans');
 });

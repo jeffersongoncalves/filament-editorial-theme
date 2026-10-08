@@ -38,5 +38,5 @@ $panel
 ### Rules
 - The panel must use a Vite theme that imports the package CSS, and its tailwind.config.js `content` must include `./vendor/jeffersongoncalves/filament-editorial-theme/resources/views/**/*.blade.php`.
 - Customize colors/fonts by overriding CSS tokens below the import; use `paperGrain()` / `textOnAccent()` for those two tokens.
-- `fonts()` and `scrollbar()` are deprecated no-ops — don't use them.
+- The plugin sets the panel fonts to the bundled ones; don't add `->font()` calls (use `->fonts(false)` to keep your own). `scrollbar()` is a deprecated no-op.
 - Keep the desktop-only sidebar fixes and `min-height: 0` on `.fi-sidebar-nav` when copying CSS.

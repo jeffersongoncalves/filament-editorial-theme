@@ -4,6 +4,7 @@ namespace JeffersonGoncalves\FilamentEditorialTheme;
 
 use Closure;
 use Filament\Contracts\Plugin;
+use Filament\FontProviders\LocalFontProvider;
 use Filament\Panel;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Contracts\Support\Htmlable;
@@ -62,6 +63,8 @@ class EditorialThemePlugin implements Plugin
     protected string|Htmlable|Closure|null $sidebarStatusVersion = null;
 
     protected bool $externalLinks = true;
+
+    protected bool $fonts = true;
 
     protected ?float $paperGrainOpacity = null;
 
@@ -183,10 +186,13 @@ class EditorialThemePlugin implements Plugin
     }
 
     /**
-     * @deprecated No effect: the fonts are always bundled with the theme CSS. Will be removed in 2.0.
+     * Use the bundled fonts (DM Sans, JetBrains Mono, Fraunces) as the panel fonts. Their @font-face rules ship with
+     * the theme CSS, so nothing is downloaded from a font CDN. Pass false to keep the fonts you set on the panel.
      */
-    public function fonts(bool $local = true): static
+    public function fonts(bool $enabled = true): static
     {
+        $this->fonts = $enabled;
+
         return $this;
     }
 
@@ -235,6 +241,11 @@ class EditorialThemePlugin implements Plugin
             'primary' => self::toRgb($this->primaryColor !== [] ? $this->primaryColor : self::PRIMARY),
             'gray' => self::toRgb($this->grayColor !== [] ? $this->grayColor : self::GRAY),
         ]);
+
+        if ($this->fonts) {
+            // Filament 3 only has a sans font setting; mono and serif come from the theme's CSS variables.
+            $panel->font('DM Sans', provider: LocalFontProvider::class);
+        }
 
         if ($this->logo !== null) {
             $panel->brandLogo($this->logo);
