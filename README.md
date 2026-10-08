@@ -1,6 +1,6 @@
 <div class="filament-hidden">
 
-![Filament Editorial Theme](https://raw.githubusercontent.com/jeffersongoncalves/filament-editorial-theme/3.x/art/jeffersongoncalves-filament-editorial-theme.png)
+![Filament Editorial Theme](https://raw.githubusercontent.com/jeffersongoncalves/filament-editorial-theme/2.x/art/jeffersongoncalves-filament-editorial-theme.png)
 
 </div>
 
@@ -9,7 +9,7 @@
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-FFDD00?style=flat-square&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/jeffersongoncalves)
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/jeffersongoncalves/filament-editorial-theme.svg?style=flat-square)](https://packagist.org/packages/jeffersongoncalves/filament-editorial-theme)
-[![Tests](https://img.shields.io/github/actions/workflow/status/jeffersongoncalves/filament-editorial-theme/tests.yml?branch=3.x&label=tests&style=flat-square)](https://github.com/jeffersongoncalves/filament-editorial-theme/actions?query=workflow%3ATests+branch%3A3.x)
+[![Tests](https://img.shields.io/github/actions/workflow/status/jeffersongoncalves/filament-editorial-theme/tests.yml?branch=2.x&label=tests&style=flat-square)](https://github.com/jeffersongoncalves/filament-editorial-theme/actions?query=workflow%3ATests+branch%3A2.x)
 [![Total Downloads](https://img.shields.io/packagist/dt/jeffersongoncalves/filament-editorial-theme.svg?style=flat-square)](https://packagist.org/packages/jeffersongoncalves/filament-editorial-theme)
 [![License](https://img.shields.io/packagist/l/jeffersongoncalves/filament-editorial-theme.svg?style=flat-square)](LICENSE.md)
 
@@ -32,7 +32,7 @@
 ## Installation
 
 ```bash
-composer require jeffersongoncalves/filament-editorial-theme:"^3.0"
+composer require jeffersongoncalves/filament-editorial-theme:"^2.0"
 ```
 
 The theme ships as CSS that your panel's Vite theme imports. If the panel has no custom theme yet, create one with `php artisan make:filament-theme`, then make `resources/css/filament/admin/theme.css` look like this:
@@ -127,7 +127,7 @@ The theme includes layout fixes that look unusual but exist for concrete reasons
 ## Requirements
 
 - PHP 8.2 or higher
-- Filament 5.x
+- Filament 4.x
 
 ## Testing
 

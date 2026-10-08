@@ -1,12 +1,12 @@
 ## Filament Editorial Theme
 
-Editorial Terminal theme for Filament 5: bundled Fraunces / DM Sans / JetBrains Mono, ink/paper/amber palette (dark + light), footer and sidebar-status partials and an optional terminal login.
+Editorial Terminal theme for Filament 4: bundled Fraunces / DM Sans / JetBrains Mono, ink/paper/amber palette (dark + light), footer and sidebar-status partials and an optional terminal login.
 
 ### Installation
 
 @verbatim
 <code-snippet name="Install" lang="bash">
-composer require jeffersongoncalves/filament-editorial-theme:"^3.0"
+composer require jeffersongoncalves/filament-editorial-theme:"^2.0"
 </code-snippet>
 @endverbatim
 
