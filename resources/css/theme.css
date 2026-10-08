@@ -833,7 +833,7 @@ html:has(.fi-simple-layout) {
    ============================================================ */
 .fi-simple-layout {
     max-width: none !important;
-    padding: 32px 24px !important;
+    padding: 0 24px !important;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -857,6 +857,14 @@ html:not(.dark) .fi-simple-layout {
 .fi-simple-page > h1,
 .fi-simple-page-heading {
     display: none !important;
+}
+
+/* Vertical breathing room as a margin on the card's container, not as padding on the full-height layout:
+   the layout is already min-height 100vh, so padding plus Filament's own my-16 / py-12 on .fi-simple-main
+   pushed the page past the viewport and added a scrollbar. */
+.fi-simple-main {
+    margin-block: 32px !important;
+    padding-block: 0 !important;
 }
 
 /* Kill Filament's simple-main background fade — let preview show through */
