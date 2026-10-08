@@ -31,6 +31,16 @@
 
 > `1.0.0` was a Filament 5 build published before the branches were split — on Filament 5 require `^3.0`.
 
+## Starter kits
+
+Start a new project with the theme already wired in: admin, app and guest panels, multi-auth, terminal login and developer logins.
+
+| Kit | Filament | Install |
+|-----|----------|---------|
+| [EditorialTheme v5](https://github.com/jeffersongoncalves/editorialthemev5) | 5.x | `composer create-project jeffersongoncalves/editorialthemev5 my-app` |
+| [EditorialTheme v4](https://github.com/jeffersongoncalves/editorialthemev4) | 4.x | `composer create-project jeffersongoncalves/editorialthemev4 my-app` |
+| [EditorialTheme v3](https://github.com/jeffersongoncalves/editorialthemev3) | 3.x | `composer create-project jeffersongoncalves/editorialthemev3 my-app` |
+
 ## Installation
 
 ```bash
