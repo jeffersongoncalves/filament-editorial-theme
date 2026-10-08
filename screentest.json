@@ -1,0 +1,77 @@
+{
+    "plugin": {
+        "name": "Filament Editorial Theme",
+        "package": "jeffersongoncalves/filament-editorial-theme"
+    },
+    "filakit": {
+        "kit": "jeffersongoncalves/editorialthemev5"
+    },
+    "install": {
+        "extra_packages": [],
+        "plugins": [],
+        "publish": [],
+        "post_install_commands": [
+            "migrate"
+        ],
+        "env": []
+    },
+    "seed": {
+        "auto_detect": false,
+        "user": {
+            "email": "admin@example.com",
+            "password": "password",
+            "name": "Admin User"
+        },
+        "models": [
+            {
+                "model": "App\\Models\\Admin",
+                "count": 1,
+                "attributes": {
+                    "name": "Admin User",
+                    "email": "admin@example.com"
+                }
+            },
+            {
+                "model": "App\\Models\\User",
+                "count": 12
+            }
+        ]
+    },
+    "screenshots": [
+        {
+            "name": "dashboard",
+            "url": "/admin"
+        },
+        {
+            "name": "resource-list",
+            "url": "/admin/users"
+        },
+        {
+            "name": "resource-edit",
+            "url": "/admin/users/2/edit"
+        },
+        {
+            "name": "login",
+            "url": "/admin",
+            "before": [
+                {"action": "click", "selector": ".fi-user-menu .fi-dropdown-trigger"},
+                {"action": "wait", "delay": 400},
+                {"action": "click", "selector": ".fi-user-menu form button[type=\"submit\"]"},
+                {"action": "wait", "delay": 2500}
+            ]
+        }
+    ],
+    "output": {
+        "directory": "screenshots",
+        "themes": [
+            "light",
+            "dark"
+        ],
+        "format": "png"
+    },
+    "readme": {
+        "update": true,
+        "section_marker": "<!-- SCREENSHOTS -->",
+        "template": "table"
+    }
+}
