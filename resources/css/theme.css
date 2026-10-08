@@ -839,6 +839,13 @@ html {
     z-index: 2;
 }
 
+/* Light scheme: a paper scrim instead of the dark one. The eyebrow, the "back to site" line and the panel
+   footer sit outside the terminal and use the light-scheme text tokens, which are made for paper — over the
+   dark scrim they turned into low-contrast text on grey. */
+html:not(.dark) .fi-simple-layout {
+    background: rgba(248, 245, 238, 0.85) !important;
+}
+
 .fi-simple-page > .fi-logo,
 .fi-simple-page > h1,
 .fi-simple-page-heading {
