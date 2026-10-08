@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.3.0 - 2026-10-08
+
+fonts() now sets the panel font to the bundled DM Sans (no font CDN); fonts(false) keeps your own.
+
 ## 1.2.1 - 2026-10-08
 
 Fix: the terminal login renders the login form hooks, so plugins like developer logins or social buttons show up.
