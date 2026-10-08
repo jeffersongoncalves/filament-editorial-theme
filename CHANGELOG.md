@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.4.0 - 2026-10-08
+
+The terminal login no longer types out its lines after the page loads: the prompt lines and form render right away (the blinking cursor stays). Removed the now-unused intro config keys: session_key, type_speed_ms, pause_after_ms, start_delay_ms.
+
 ## 3.3.0 - 2026-10-08
 
 Login: light/dark toggle next to the clock, spacing for plugins rendered after the form, page fits the viewport (no extra padding, keeps Filament's min-h-dvh).
