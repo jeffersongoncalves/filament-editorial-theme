@@ -29,6 +29,8 @@
 | 2.x | 4.x | `^2.0` |
 | 3.x | 5.x | `^3.0` |
 
+> `1.0.0` was a Filament 5 build published before the branches were split — on Filament 5 require `^3.0`.
+
 ## Installation
 
 ```bash
