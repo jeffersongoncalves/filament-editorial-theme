@@ -102,3 +102,17 @@ it('leaves the panel fonts alone with fonts(false)', function () {
 
     expect($panel->getFontFamily())->not->toBe('DM Sans');
 });
+
+it('puts a light/dark theme toggle next to the clock', function () {
+    Livewire::test(Login::class)
+        ->assertSeeHtml('login-theme-toggle')
+        ->assertSeeHtml("\$dispatch('theme-changed'");
+});
+
+it('spaces the after-form hook output only when there is some', function () {
+    expect(Livewire::test(Login::class)->html())->not->toContain('class="login-form-after"');
+
+    FilamentView::registerRenderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, fn () => 'dev-logins');
+
+    Livewire::test(Login::class)->assertSeeHtml('<div class="login-form-after">dev-logins</div>');
+});
