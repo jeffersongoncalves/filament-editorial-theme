@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.2.1 - 2026-10-08
+
+Fix: readable login in the light scheme (paper scrim instead of the dark one).
+
 ## 2.2.0 - 2026-10-08
 
 fonts() now sets the panel sans/mono/serif fonts to the bundled DM Sans, JetBrains Mono and Fraunces (no font CDN); fonts(false) keeps your own.
