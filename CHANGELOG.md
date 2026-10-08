@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.2.1 - 2026-10-08
+
+Fix: the terminal login renders the login form hooks, so plugins like developer logins or social buttons show up.
+
 ## 1.2.0 - 2026-10-08
 
 Login and status strings in 19 languages.
