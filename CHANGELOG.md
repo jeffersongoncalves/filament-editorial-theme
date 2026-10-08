@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.1.1 - 2026-10-08
+
+Fix: drop the sidebar margin overrides that forced a fixed offset on the main content.
+
 ## 2.1.0 - 2026-10-08
 
 Login and status strings in 19 languages.
