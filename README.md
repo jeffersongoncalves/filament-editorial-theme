@@ -31,6 +31,17 @@
 
 > `1.0.0` was a Filament 5 build published before the branches were split — on Filament 5 require `^3.0`.
 
+## Screenshots
+
+<!-- SCREENSHOTS -->
+| Screenshot | Light | Dark |
+|---|---|---|
+| Login | ![login](screenshots/light/login.png) | ![login](screenshots/dark/login.png) |
+| Dashboard | ![dashboard](screenshots/light/dashboard.png) | ![dashboard](screenshots/dark/dashboard.png) |
+| Resource list | ![resource-list](screenshots/light/resource-list.png) | ![resource-list](screenshots/dark/resource-list.png) |
+| Resource edit | ![resource-edit](screenshots/light/resource-edit.png) | ![resource-edit](screenshots/dark/resource-edit.png) |
+<!-- SCREENSHOTS -->
+
 ## Starter kits
 
 Start a new project with the theme already wired in: admin, app and guest panels, multi-auth, terminal login and developer logins.
