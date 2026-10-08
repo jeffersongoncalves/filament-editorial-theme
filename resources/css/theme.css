@@ -850,7 +850,6 @@ html:has(.fi-simple-layout) {
 .fi-simple-layout {
     max-width: none !important;
     padding: 0 24px !important;
-    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
