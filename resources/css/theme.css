@@ -775,7 +775,7 @@ html::-webkit-scrollbar-thumb:hover,
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* FIX 1 + FIX 3 — desktop-only (>= lg breakpoint, 1024px).
+/* FIX 1 — desktop-only (>= lg breakpoint, 1024px).
    On mobile Filament renders the sidebar as a slide-in drawer; pinning the
    wrapper to 81px on small screens would steal layout space without showing
    the icons and shove the topbar hamburger off-screen. */
@@ -790,19 +790,6 @@ html::-webkit-scrollbar-thumb:hover,
         margin-top: 64px !important;
         z-index: 30;
         min-width: 81px;
-    }
-
-    /* FIX 3 — Push main content right when sidebar open (320px) or collapsed (81px).
-       Scoped via body class so guest/login pages without sidebar are unaffected. */
-    .fi-body-has-sidebar-collapsible-on-desktop .fi-main-ctn,
-    .fi-body-has-sidebar-fully-collapsible-on-desktop .fi-main-ctn {
-        margin-inline-start: 81px !important;
-    }
-
-    .fi-body-has-sidebar-collapsible-on-desktop .fi-main-ctn.fi-main-ctn-sidebar-open,
-    .fi-body-has-sidebar-fully-collapsible-on-desktop .fi-main-ctn.fi-main-ctn-sidebar-open,
-    .fi-main-ctn-sidebar-open {
-        margin-inline-start: 320px !important;
     }
 }
 
