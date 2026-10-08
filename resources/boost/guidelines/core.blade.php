@@ -6,7 +6,7 @@ Editorial Terminal theme for Filament 5: bundled Fraunces / DM Sans / JetBrains 
 
 @verbatim
 <code-snippet name="Install" lang="bash">
-composer require jeffersongoncalves/filament-editorial-theme:"^1.0"
+composer require jeffersongoncalves/filament-editorial-theme:"^3.0"
 </code-snippet>
 @endverbatim
 

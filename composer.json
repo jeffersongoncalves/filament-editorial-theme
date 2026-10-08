@@ -1,6 +1,6 @@
 {
     "name": "jeffersongoncalves/filament-editorial-theme",
-    "description": "Editorial Terminal: a paper + terminal theme for Filament 5. Fraunces / DM Sans / JetBrains Mono typography, amber palette, light and dark schemes, sidebar layout fixes, footer and status partials and an optional terminal-style login.",
+    "description": "Editorial Terminal: a paper + terminal theme for Filament 3, 4 and 5. Fraunces / DM Sans / JetBrains Mono typography, amber palette, light and dark schemes, sidebar layout fixes, footer and status partials and an optional terminal-style login.",
     "keywords": [
         "jeffersongoncalves",
         "laravel",
@@ -46,8 +46,8 @@
     "scripts": {
         "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
         "analyse": "vendor/bin/phpstan analyse",
-        "format": "vendor/bin/pint",
-        "test": "vendor/bin/pest"
+        "test": "vendor/bin/pest",
+        "format": "vendor/bin/pint"
     },
     "config": {
         "sort-packages": true,
