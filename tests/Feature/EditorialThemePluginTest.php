@@ -76,3 +76,12 @@ it('translates the partials', function () {
 
     expect(__('filament-editorial-theme::status.label'))->not->toBe('filament-editorial-theme::status.label');
 });
+
+it('renders the login form hooks plugins rely on', function () {
+    FilamentView::registerRenderHook(PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE, fn () => 'hook-before-form');
+    FilamentView::registerRenderHook(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, fn () => 'hook-after-form');
+
+    Livewire::test(Login::class)
+        ->assertSee('hook-before-form')
+        ->assertSee('hook-after-form');
+});

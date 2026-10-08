@@ -25,6 +25,8 @@
                     <span style="color: var(--color-ink-300);" data-typewriter-line="3" data-typewriter="login --required"></span><span class="login-cursor" data-cursor="3"></span>
                 </div>
 
+                {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE, scopes: $this->getRenderHookScopes()) }}
+
                 <form wire:submit="authenticate" class="login-form login-terminal-form" data-typewriter-form>
                     {{ $this->form }}
 
@@ -32,6 +34,9 @@
                         <x-filament-panels::form.actions :actions="$this->getCachedFormActions()" :full-width="$this->hasFullWidthFormActions()" />
                     </div>
                 </form>
+
+                {{-- Plugins hook in here (developer logins, social login buttons...). --}}
+                {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, scopes: $this->getRenderHookScopes()) }}
 
                 <div class="login-terminal-status">
                     <span class="editorial-pulse"></span>
