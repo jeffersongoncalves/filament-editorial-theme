@@ -85,6 +85,7 @@ public function panel(Panel $panel): Panel
 | `sidebarStatus(bool)` | on | "status · production/local" block pinned to the bottom of the sidebar |
 | `sidebarStatusVersion(…)` | — | Version shown next to the status, e.g. `fn () => config('app.version')` |
 | `externalLinks(bool)` | on | Open cross-host links in a new tab (`noopener noreferrer`) |
+| `fonts(bool)` | on | Use the bundled DM Sans / JetBrains Mono / Fraunces as the panel fonts (no font CDN); `false` keeps the fonts you set with `->font()` |
 | `paperGrain(float $opacity)` | 0.06 dark / 0.04 light | Paper-grain overlay opacity |
 | `textOnAccent(string $color)` | ink (dark) / `#fff` (light) | Text color on primary buttons — set it when your `primaryColor()` needs a different contrast |
 
