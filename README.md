@@ -19,7 +19,7 @@
 - Ink / paper / amber palette with dark (default) and light schemes driven by semantic tokens
 - Paper-grain overlay, amber scrollbars, sidebar layout fixes for Livewire morphing
 - Footer and sidebar-status partials, external links opened in a new tab
-- Optional terminal-style login with a typewriter intro
+- Optional terminal-style login with a light/dark toggle
 
 ## Compatibility
 
