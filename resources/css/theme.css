@@ -799,6 +799,13 @@ html {
     overflow-y: scroll;
 }
 
+/* ...but not on the login and other simple pages: a single centred card never switches between scrolling and
+   not scrolling, so the forced scrollbar was just an empty track on the right. */
+html:has(.fi-simple-layout) {
+    scrollbar-gutter: auto;
+    overflow-y: auto;
+}
+
 /* FIX 6 — Sidebar nav scrolls independently.
    min-height:0 on flex child lets it shrink past intrinsic content height so
    overflow:auto actually clips. Without it, nav expands and shoves
