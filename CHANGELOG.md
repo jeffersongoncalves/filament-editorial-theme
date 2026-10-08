@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.1.2 - 2026-10-08
+
+Fix: the terminal login renders the login form hooks, so plugins like developer logins or social buttons show up.
+
 ## 2.1.1 - 2026-10-08
 
 Fix: drop the sidebar margin overrides that forced a fixed offset on the main content.
