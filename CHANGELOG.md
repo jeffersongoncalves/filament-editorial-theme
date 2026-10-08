@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 3.3.0 - 2026-10-08
+
+Login: light/dark toggle next to the clock, spacing for plugins rendered after the form, page fits the viewport (no extra padding, keeps Filament's min-h-dvh).
+
 ## 3.2.2 - 2026-10-08
 
 Fix: no forced scrollbar on the login page.
