@@ -121,7 +121,7 @@ Behind the terminal you can show a blurred preview of any view (your public home
 php artisan vendor:publish --tag=filament-editorial-theme-config
 ```
 
-The login, footer and status strings ship in English, Spanish and Brazilian Portuguese.
+The login and status strings ship in 19 languages (ar, az, de, en, es, fa, fr, hi, it, ja, nl, pl, pt, pt_BR, ru, tr, uk, uz, zh_CN).
 
 ## Gotchas
 
