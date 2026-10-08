@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.3.1 - 2026-10-08
+
+Fix: readable login in the light scheme (paper scrim instead of the dark one).
+
 ## 1.3.0 - 2026-10-08
 
 fonts() now sets the panel font to the bundled DM Sans (no font CDN); fonts(false) keeps your own.
