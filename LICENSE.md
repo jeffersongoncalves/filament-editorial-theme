@@ -1,36 +1,24 @@
-# Proprietary License
+The MIT License (MIT)
 
-Copyright (c) 2026 Jefferson Simao Goncalves <gerson.simao.92@gmail.com>
+Copyright (c) Jefferson Gonçalves <gerson.simao.92@gmail.com>
 
-All rights reserved.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-This software and associated documentation files (the "Software") are the proprietary
-property of the copyright holder. The Software is licensed, not sold.
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 
-## Grant of License
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 
-Subject to a valid commercial license agreement and payment of applicable fees,
-licensee is granted a non-exclusive, non-transferable, revocable license to use
-the Software in accordance with the terms of that agreement.
-
-## Restrictions
-
-Without an active commercial license, you may NOT:
-
-1. Use the Software in any production environment.
-2. Copy, modify, merge, publish, distribute, sublicense, or sell copies of the Software.
-3. Remove or alter any proprietary notices contained within the Software.
-4. Reverse-engineer, decompile, or disassemble the Software.
-5. Share access credentials or installation tokens with third parties.
-
-## License Inquiries
-
-For commercial licensing, contact: gerson.simao.92@gmail.com
-
-## No Warranty
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM, OUT OF OR
-IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+The bundled fonts in resources/fonts are not covered by this license: they are
+licensed under the SIL Open Font License 1.1 — see resources/fonts/OFL.md.

@@ -8,6 +8,7 @@ use Filament\Panel;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\HtmlString;
 use JeffersonGoncalves\FilamentEditorialTheme\Pages\Auth\Login;
 
 class EditorialThemePlugin implements Plugin
@@ -62,13 +63,7 @@ class EditorialThemePlugin implements Plugin
 
     protected bool $externalLinks = true;
 
-    protected bool $fontsLocal = true;
-
-    protected int $scrollbarSize = 6;
-
-    protected bool $scrollbarAccent = true;
-
-    protected float $paperGrainOpacity = 0.06;
+    protected ?float $paperGrainOpacity = null;
 
     protected ?string $textOnAccent = null;
 
@@ -187,21 +182,23 @@ class EditorialThemePlugin implements Plugin
         return $value instanceof Closure ? $value() : $value;
     }
 
+    /**
+     * @deprecated No effect: the fonts are always bundled with the theme CSS. Will be removed in 2.0.
+     */
     public function fonts(bool $local = true): static
     {
-        $this->fontsLocal = $local;
-
         return $this;
     }
 
+    /**
+     * @deprecated No effect: override the scrollbar in your theme.css. Will be removed in 2.0.
+     */
     public function scrollbar(int $size = 6, bool $accent = true): static
     {
-        $this->scrollbarSize = $size;
-        $this->scrollbarAccent = $accent;
-
         return $this;
     }
 
+    /** Opacity of the paper-grain overlay (theme default: 0.06 dark, 0.04 light). */
     public function paperGrain(float $opacity = 0.06): static
     {
         $this->paperGrainOpacity = $opacity;
@@ -209,6 +206,7 @@ class EditorialThemePlugin implements Plugin
         return $this;
     }
 
+    /** Text color on primary (accent) surfaces, e.g. buttons (theme default: ink in dark, white in light). */
     public function textOnAccent(string $color): static
     {
         $this->textOnAccent = $color;
@@ -221,12 +219,7 @@ class EditorialThemePlugin implements Plugin
         return $this->terminalLogin;
     }
 
-    public function getScrollbarSize(): int
-    {
-        return $this->scrollbarSize;
-    }
-
-    public function getPaperGrainOpacity(): float
+    public function getPaperGrainOpacity(): ?float
     {
         return $this->paperGrainOpacity;
     }
@@ -249,6 +242,10 @@ class EditorialThemePlugin implements Plugin
 
         if ($this->brandName !== null) {
             $panel->brandName($this->brandName);
+        }
+
+        if ($this->paperGrainOpacity !== null || $this->textOnAccent !== null) {
+            $panel->renderHook(PanelsRenderHook::HEAD_END, fn () => new HtmlString($this->tokenOverrides()));
         }
 
         if ($this->terminalLogin) {
@@ -281,6 +278,21 @@ class EditorialThemePlugin implements Plugin
                 fn () => View::make('filament-editorial-theme::partials.external-links'),
             );
         }
+    }
+
+    /**
+     * Unlayered, so it beats the theme tokens declared inside @layer components for both schemes.
+     */
+    public function tokenOverrides(): string
+    {
+        $tokens = array_filter([
+            '--paper-grain-opacity' => $this->paperGrainOpacity !== null ? (string) max(0, min(1, $this->paperGrainOpacity)) : null,
+            '--text-on-accent' => $this->textOnAccent !== null ? e($this->textOnAccent) : null,
+        ], fn (?string $value) => $value !== null);
+
+        $css = implode(' ', array_map(fn (string $name, string $value) => "{$name}: {$value};", array_keys($tokens), $tokens));
+
+        return "<style>:root, .fi-body { {$css} }</style>";
     }
 
     public function boot(Panel $panel): void

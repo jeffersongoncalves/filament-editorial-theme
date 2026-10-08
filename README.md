@@ -1,93 +1,94 @@
+<div class="filament-hidden">
+
+![Filament Editorial Theme](https://raw.githubusercontent.com/jeffersongoncalves/filament-editorial-theme/1.x/art/jeffersongoncalves-filament-editorial-theme.png)
+
+</div>
+
 # Filament Editorial Theme
 
-> **Editorial Terminal** — a paper + terminal aesthetic theme for Filament v5.
-> Custom typography (Fraunces / DM Sans / JetBrains Mono), amber accent palette,
-> layout fixes for sidebar morph + scrollbar gutter, and an optional
-> terminal-style login screen.
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-FFDD00?style=flat-square&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/jeffersongoncalves)
 
-**License:** Proprietary — see [LICENSE.md](LICENSE.md). Commercial license required for production use.
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/jeffersongoncalves/filament-editorial-theme.svg?style=flat-square)](https://packagist.org/packages/jeffersongoncalves/filament-editorial-theme)
+[![Tests](https://img.shields.io/github/actions/workflow/status/jeffersongoncalves/filament-editorial-theme/tests.yml?branch=1.x&label=tests&style=flat-square)](https://github.com/jeffersongoncalves/filament-editorial-theme/actions?query=workflow%3ATests+branch%3A1.x)
+[![Total Downloads](https://img.shields.io/packagist/dt/jeffersongoncalves/filament-editorial-theme.svg?style=flat-square)](https://packagist.org/packages/jeffersongoncalves/filament-editorial-theme)
+[![License](https://img.shields.io/packagist/l/jeffersongoncalves/filament-editorial-theme.svg?style=flat-square)](LICENSE.md)
 
-| Branch | Filament | Status |
-| ------ | -------- | ------ |
-| `1.x`  | v5       | active |
+**Editorial Terminal** — a paper + terminal theme for Filament 5, the one behind [jeffersongoncalves.dev.br](https://jeffersongoncalves.dev.br).
 
-## Install
+- Fraunces (display), DM Sans (UI) and JetBrains Mono (code), bundled — no Google Fonts request
+- Ink / paper / amber palette with dark (default) and light schemes driven by semantic tokens
+- Paper-grain overlay, amber scrollbars, sidebar layout fixes for Livewire morphing
+- Footer and sidebar-status partials, external links opened in a new tab
+- Optional terminal-style login with a typewriter intro
 
-This package is distributed via a private Composer repository. Add the repo to your `composer.json`:
+## Compatibility
 
-```json
-{
-  "repositories": [
-    { "type": "composer", "url": "https://packages.jeffersongoncalves.dev.br" }
-  ],
-  "require": {
-    "jeffersongoncalves/filament-editorial-theme": "^1.0"
-  }
-}
-```
+| Branch | Filament | Package version |
+|--------|----------|-----------------|
+| 1.x | 5.x | `^1.0` |
 
-Then:
+## Installation
 
 ```bash
-composer require jeffersongoncalves/filament-editorial-theme
-php artisan filament:assets
-php artisan vendor:publish --tag=filament-editorial-theme-stubs
-php artisan vendor:publish --tag=filament-editorial-theme-fonts
+composer require jeffersongoncalves/filament-editorial-theme:"^1.0"
 ```
 
-## Register on a panel
+The theme ships as CSS that your panel's Vite theme imports. If the panel has no custom theme yet, create one with `php artisan make:filament-theme`, then make `resources/css/filament/admin/theme.css` look like this:
+
+```css
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+@import '../../../../vendor/jeffersongoncalves/filament-editorial-theme/resources/css/theme.css';
+
+/* Tailwind v4 only keeps utilities found in @source files: include the theme's partials. */
+@source '../../../../vendor/jeffersongoncalves/filament-editorial-theme/resources/views';
+
+@source '../../../../app/Filament';
+@source '../../../../resources/views/filament';
+
+/* Your overrides below */
+```
+
+Make sure the file is a Vite input and the panel uses it (`->viteTheme('resources/css/filament/admin/theme.css')`), then build with `pnpm run build` (or `npm run build`).
+
+## Usage
 
 ```php
 use JeffersonGoncalves\FilamentEditorialTheme\EditorialThemePlugin;
-use Filament\Support\Colors\Color;
 
 public function panel(Panel $panel): Panel
 {
     return $panel
+        ->viteTheme('resources/css/filament/admin/theme.css')
         ->plugin(
             EditorialThemePlugin::make()
-                ->primaryColor(Color::Amber)
-                ->logo('/img/logo.svg')
+                ->logo(fn () => asset('img/logo.svg'))
                 ->brandName('Acme Inc.')
-                ->terminalLogin(enabled: true)
-                ->fonts(local: true)
-                ->scrollbar(size: 6, accent: true)
-                ->paperGrain(opacity: 0.04)
+                ->terminalLogin(),
         );
 }
 ```
 
-## Theme CSS
+### Options
 
-The `vendor:publish --tag=filament-editorial-theme-stubs` command writes
-`resources/css/filament/admin/theme.css` that:
+| Method | Default | |
+|---|---|---|
+| `primaryColor(array $color)` | amber | Panel primary palette (e.g. `Color::Green`) |
+| `grayColor(array $color)` | ink/paper | Panel gray palette |
+| `logo(string\|Htmlable\|Closure)` / `brandName(string\|Closure)` | — | Shortcuts for the panel brand |
+| `terminalLogin(bool)` | off | Terminal-style login page (`Pages\Auth\Login`) |
+| `footer(bool)` | on | Footer partial |
+| `footerCopyright(…)` / `footerRight(…)` | `© {year} · {app.name}` / empty | Footer contents (string, HTML or Closure) |
+| `sidebarStatus(bool)` | on | "status · production/local" block pinned to the bottom of the sidebar |
+| `sidebarStatusVersion(…)` | — | Version shown next to the status, e.g. `fn () => config('app.version')` |
+| `externalLinks(bool)` | on | Open cross-host links in a new tab (`noopener noreferrer`) |
+| `paperGrain(float $opacity)` | 0.06 dark / 0.04 light | Paper-grain overlay opacity |
+| `textOnAccent(string $color)` | ink (dark) / `#fff` (light) | Text color on primary buttons — set it when your `primaryColor()` needs a different contrast |
 
-1. `@import`s Filament's base theme.
-2. `@import`s this package's theme CSS from `vendor/`.
-3. `@source`s the package's blade partials so Tailwind v4 keeps the utility
-   classes used inside them (without this line, `flex items-center px-6` and
-   similar utilities used by the bundled footer / sidebar-status / login
-   partials would be purged from the build).
+Everything else is a CSS token: override `--surface-*`, `--text-*`, `--accent`, the fonts (`--font-serif`, `--font-sans`, `--font-mono` in an `@theme` block) and the rest below the `@import` in your theme file.
 
-Add your overrides below the import. Then build assets normally with Vite
-(`npm run build` or `npm run dev`).
+### Terminal login
 
-If you already have a `theme.css` and don't want to overwrite it, copy the
-two `@import`s and the `@source 'vendor/jeffersongoncalves/...'` line into
-your existing file manually.
-
-## Terminal login (opt-in)
-
-Point your panel at the bundled Login page:
-
-```php
-use JeffersonGoncalves\FilamentEditorialTheme\Pages\Auth\Login;
-
-$panel->login(Login::class);
-```
-
-If you need to customize the login behavior, extend the bundled page in
-your application:
+`->terminalLogin()` swaps the panel login for the bundled page. To customize it, extend it and point the panel at your class:
 
 ```php
 namespace App\Filament\Admin\Pages\Auth;
@@ -96,32 +97,59 @@ class Login extends \JeffersonGoncalves\FilamentEditorialTheme\Pages\Auth\Login
 {
     protected function getCredentialsFromFormData(array $data): array
     {
-        // your customization
-        return parent::getCredentialsFromFormData($data);
+        return [...parent::getCredentialsFromFormData($data), 'status' => true];
     }
 }
+
+$panel->login(\App\Filament\Admin\Pages\Auth\Login::class);
 ```
 
-Then point the panel at your subclass: `$panel->login(\App\Filament\Admin\Pages\Auth\Login::class);`
+Behind the terminal you can show a blurred preview of any view (your public homepage, for instance) — publish the config and set `login.preview_view`:
+
+```bash
+php artisan vendor:publish --tag=filament-editorial-theme-config
+```
+
+The login, footer and status strings ship in English, Spanish and Brazilian Portuguese.
 
 ## Gotchas
 
-The theme includes several layout fixes that look unusual but exist for concrete
-reasons. Do not remove them blindly:
+The theme includes layout fixes that look unusual but exist for concrete reasons — keep them if you copy the CSS:
 
-- **Layout fixes for sidebar morph are desktop-only** (`@media (min-width: 1024px)`).
-  On mobile the sidebar renders as a drawer; pinning the wrapper to 81px would
-  steal layout space.
-- **`min-height: 0` on `.fi-sidebar-nav`** is required for `overflow-y: auto` to
-  actually clip — without it the footer scrolls off-screen.
-- **`--text-on-accent` is `#fff` in light scheme** because amber-600 is too dark
-  for ink-950 text to read with adequate contrast.
-- **Outlined primary buttons** use `currentColor` for icons (not `--text-on-accent`)
-  so the icon doesn't go ink-950 on a transparent background.
-- **Scrollbar uses tokens** (`--accent` / `--surface-base`) — accent color is part
-  of the visual identity.
+- **Sidebar layout fixes are desktop-only** (`@media (min-width: 1024px)`): on mobile the sidebar is a drawer; pinning the wrapper to 81px would leave an empty gutter.
+- **`min-height: 0` on `.fi-sidebar-nav`** is what lets `overflow-y: auto` clip — without it the sidebar footer scrolls off-screen.
+- **`--text-on-accent` is `#fff` in the light scheme** because amber-600 is too dark for ink text to read well.
+- **Outlined primary buttons** keep `currentColor` icons instead of `--text-on-accent`, so the icon matches the label on a transparent background.
+- **Scrollbars use tokens** (`--accent` on `--surface-base`) — they're part of the visual identity.
 
-## Support
+## Requirements
 
-Commercial licensees receive issue support via email. For sales inquiries,
-contact `gerson.simao.92@gmail.com`.
+- PHP 8.2 or higher
+- Filament 5.x
+
+## Testing
+
+```bash
+composer test
+```
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Contributing
+
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
+
+## Security Vulnerabilities
+
+Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+
+## Credits
+
+- [Jefferson Gonçalves](https://github.com/jeffersongoncalves)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information. The bundled fonts are licensed under the SIL Open Font License 1.1 — see [resources/fonts/OFL.md](resources/fonts/OFL.md).
