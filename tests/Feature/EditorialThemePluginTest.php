@@ -80,3 +80,20 @@ it('renders the login form hooks plugins rely on', function () {
         ->assertSee('hook-before-form')
         ->assertSee('hook-after-form');
 });
+
+it('registers the bundled fonts on the panel without a CDN link', function () {
+    $panel = Filament::getPanel('test');
+
+    expect($panel->getFontFamily())->toBe('DM Sans')
+        ->and($panel->getMonoFontFamily())->toBe('JetBrains Mono')
+        ->and($panel->getSerifFontFamily())->toBe('Fraunces')
+        ->and($panel->getFontProvider())->toBe(\Filament\FontProviders\LocalFontProvider::class)
+        ->and((string) $panel->getFontHtml())->not->toContain('<link');
+});
+
+it('leaves the panel fonts alone with fonts(false)', function () {
+    $panel = (new \Filament\Panel)->id('other');
+    EditorialThemePlugin::make()->fonts(false)->register($panel);
+
+    expect($panel->getFontFamily())->not->toBe('DM Sans');
+});
