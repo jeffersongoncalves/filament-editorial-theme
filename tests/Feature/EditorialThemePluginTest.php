@@ -23,7 +23,12 @@ it('lets the primary color be overridden', function () {
     $panel = Filament::getPanel('test');
     EditorialThemePlugin::make()->primaryColor(['500' => '#00ff00'])->register($panel);
 
-    expect(Filament::getPanel('test')->getColors()['primary'])->toBe(['500' => '#00ff00']);
+    expect(Filament::getPanel('test')->getColors()['primary'])->toBe(['500' => '0, 255, 0']);
+});
+
+it('converts hex palettes to the rgb triplets Filament 3 expects', function () {
+    expect(EditorialThemePlugin::toRgb(['400' => '#FBBF24', '500' => '245, 158, 11']))
+        ->toBe(['400' => '251, 191, 36', '500' => '245, 158, 11']);
 });
 
 it('renders the footer and the sidebar status with the configured values', function () {

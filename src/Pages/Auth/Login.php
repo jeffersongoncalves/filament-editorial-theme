@@ -2,16 +2,18 @@
 
 namespace JeffersonGoncalves\FilamentEditorialTheme\Pages\Auth;
 
-class Login extends \Filament\Auth\Pages\Login
-{
-    protected string $view = 'filament-editorial-theme::auth.login';
+use Illuminate\Contracts\Support\Htmlable;
 
-    public function getHeading(): string
+class Login extends \Filament\Pages\Auth\Login
+{
+    protected static string $view = 'filament-editorial-theme::auth.login';
+
+    public function getHeading(): string|Htmlable
     {
         return '';
     }
 
-    public function getSubheading(): ?string
+    public function getSubheading(): string|Htmlable|null
     {
         return null;
     }

@@ -17,13 +17,20 @@ use JeffersonGoncalves\FilamentEditorialTheme\EditorialThemeServiceProvider;
 use JeffersonGoncalves\FilamentEditorialTheme\Tests\Fixtures\TestPanelProvider;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
 
 class TestCase extends Orchestra
 {
     protected function getPackageProviders($app): array
     {
-        return [
+        // Filament 4+ ships the schema test helpers in the Schemas provider; Filament 3 views need @capture.
+        $versionSpecific = array_values(array_filter([
             SchemasServiceProvider::class,
+            BladeCaptureDirectiveServiceProvider::class,
+        ], 'class_exists'));
+
+        return [
+            ...$versionSpecific,
             ActionsServiceProvider::class,
             BladeHeroiconsServiceProvider::class,
             BladeIconsServiceProvider::class,

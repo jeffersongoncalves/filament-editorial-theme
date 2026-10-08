@@ -29,7 +29,7 @@
                     {{ $this->form }}
 
                     <div style="margin-top: 20px;">
-                        {{ $this->getAuthenticateFormAction() }}
+                        <x-filament-panels::form.actions :actions="$this->getCachedFormActions()" :full-width="$this->hasFullWidthFormActions()" />
                     </div>
                 </form>
 

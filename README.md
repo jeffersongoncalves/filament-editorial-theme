@@ -13,7 +13,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/jeffersongoncalves/filament-editorial-theme.svg?style=flat-square)](https://packagist.org/packages/jeffersongoncalves/filament-editorial-theme)
 [![License](https://img.shields.io/packagist/l/jeffersongoncalves/filament-editorial-theme.svg?style=flat-square)](LICENSE.md)
 
-**Editorial Terminal** — a paper + terminal theme for Filament 5, the one behind [jeffersongoncalves.dev.br](https://jeffersongoncalves.dev.br).
+**Editorial Terminal** — a paper + terminal theme for Filament 3, 4 and 5, the one behind [jeffersongoncalves.dev.br](https://jeffersongoncalves.dev.br).
 
 - Fraunces (display), DM Sans (UI) and JetBrains Mono (code), bundled — no Google Fonts request
 - Ink / paper / amber palette with dark (default) and light schemes driven by semantic tokens
@@ -25,27 +25,38 @@
 
 | Branch | Filament | Package version |
 |--------|----------|-----------------|
-| 1.x | 5.x | `^1.0` |
+| 1.x | 3.x | `^1.1` |
+| 2.x | 4.x | `^2.0` |
+| 3.x | 5.x | `^3.0` |
+
+> `1.0.0` was a Filament 5 build published before the branches were split — on Filament 5 require `^3.0`.
 
 ## Installation
 
 ```bash
-composer require jeffersongoncalves/filament-editorial-theme:"^1.0"
+composer require jeffersongoncalves/filament-editorial-theme:"^1.1"
 ```
 
-The theme ships as CSS that your panel's Vite theme imports. If the panel has no custom theme yet, create one with `php artisan make:filament-theme`, then make `resources/css/filament/admin/theme.css` look like this:
+The theme ships as CSS that your panel's Vite theme imports. If the panel has no custom theme yet, create one with `php artisan make:filament-theme`, then add the theme import right after Filament's in `resources/css/filament/admin/theme.css`:
 
 ```css
-@import '../../../../vendor/filament/filament/resources/css/theme.css';
-@import '../../../../vendor/jeffersongoncalves/filament-editorial-theme/resources/css/theme.css';
+@import '/vendor/filament/filament/resources/css/theme.css';
+@import '/vendor/jeffersongoncalves/filament-editorial-theme/resources/css/theme.css';
 
-/* Tailwind v4 only keeps utilities found in @source files: include the theme's partials. */
-@source '../../../../vendor/jeffersongoncalves/filament-editorial-theme/resources/views';
-
-@source '../../../../app/Filament';
-@source '../../../../resources/views/filament';
+@config 'tailwind.config.js';
 
 /* Your overrides below */
+```
+
+Add the theme's partials to the `content` of `resources/css/filament/admin/tailwind.config.js` so Tailwind keeps their utilities:
+
+```js
+content: [
+    './app/Filament/**/*.php',
+    './resources/views/filament/**/*.blade.php',
+    './vendor/filament/**/*.blade.php',
+    './vendor/jeffersongoncalves/filament-editorial-theme/resources/views/**/*.blade.php',
+],
 ```
 
 Make sure the file is a Vite input and the panel uses it (`->viteTheme('resources/css/filament/admin/theme.css')`), then build with `pnpm run build` (or `npm run build`).
@@ -84,7 +95,7 @@ public function panel(Panel $panel): Panel
 | `paperGrain(float $opacity)` | 0.06 dark / 0.04 light | Paper-grain overlay opacity |
 | `textOnAccent(string $color)` | ink (dark) / `#fff` (light) | Text color on primary buttons — set it when your `primaryColor()` needs a different contrast |
 
-Everything else is a CSS token: override `--surface-*`, `--text-*`, `--accent`, the fonts (`--font-serif`, `--font-sans`, `--font-mono` in an `@theme` block) and the rest below the `@import` in your theme file.
+Everything else is a CSS token: override `--surface-*`, `--text-*`, `--accent`, the fonts (`--font-serif`, `--font-sans`, `--font-mono`) and the rest below the `@import` in your theme file.
 
 ### Terminal login
 
@@ -116,7 +127,8 @@ The login, footer and status strings ship in English, Spanish and Brazilian Port
 
 The theme includes layout fixes that look unusual but exist for concrete reasons — keep them if you copy the CSS:
 
-- **Sidebar layout fixes are desktop-only** (`@media (min-width: 1024px)`): on mobile the sidebar is a drawer; pinning the wrapper to 81px would leave an empty gutter.
+- **Filament 3 skips the fixed-sidebar fixes**: they work around Filament 4/5 Livewire morphing; Filament 3 keeps the sidebar in the normal flex flow.
+- **Sidebar layout fixes are desktop-only** (Filament 4/5) (`@media (min-width: 1024px)`): on mobile the sidebar is a drawer; pinning the wrapper to 81px would leave an empty gutter.
 - **`min-height: 0` on `.fi-sidebar-nav`** is what lets `overflow-y: auto` clip — without it the sidebar footer scrolls off-screen.
 - **`--text-on-accent` is `#fff` in the light scheme** because amber-600 is too dark for ink text to read well.
 - **Outlined primary buttons** keep `currentColor` icons instead of `--text-on-accent`, so the icon matches the label on a transparent background.
@@ -125,7 +137,7 @@ The theme includes layout fixes that look unusual but exist for concrete reasons
 ## Requirements
 
 - PHP 8.2 or higher
-- Filament 5.x
+- Filament 3.x
 
 ## Testing
 

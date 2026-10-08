@@ -1,4 +1,3 @@
-@source '../resources/views';
 
 /* ============================================================
    EDITORIAL TERMINAL · Filament v5 admin theme
@@ -70,7 +69,8 @@
     src: url('../fonts/jetbrains_500.ttf') format('truetype');
 }
 
-@theme {
+/* Filament 3 / Tailwind 3 build: plain custom properties instead of a Tailwind v4 @theme block. */
+:root {
     --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
     --font-serif: 'Fraunces', 'Times New Roman', serif;
     --font-mono: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
@@ -121,7 +121,6 @@
     --color-danger-500: #E26B5C;
 }
 
-@layer components {
 
 /* ============================================================
    SEMANTIC TOKENS · Dark scheme (default)
@@ -553,21 +552,21 @@ html:not(.dark) .fi-body {
 .fi-icon-btn.fi-color-warning svg {
     color: var(--accent-strong) !important;
 }
-/* Solid primary buttons (no .fi-outlined) get the dark on-accent text/icon
+/* Solid primary buttons (no .fi-btn-outlined) get the dark on-accent text/icon
    color because their bg is the amber accent. Outlined-primary keeps text
    color (handled below) so the icon doesn't go ink-950 on a transparent bg. */
-.fi-btn-color-primary:not(.fi-outlined) svg,
-.fi-icon-btn-color-primary:not(.fi-outlined) svg,
-.fi-btn.fi-color-primary:not(.fi-outlined) svg,
-.fi-icon-btn.fi-color-primary:not(.fi-outlined) svg {
+.fi-btn-color-primary:not(.fi-btn-outlined) svg,
+.fi-icon-btn-color-primary:not(.fi-btn-outlined) svg,
+.fi-btn.fi-color-primary:not(.fi-btn-outlined) svg,
+.fi-icon-btn.fi-color-primary:not(.fi-btn-outlined) svg {
     color: var(--text-on-accent) !important;
 }
 
 /* Outlined buttons: icon inherits text color (currentColor) instead of
    Filament default `var(--color-600)` so amber-outlined icon matches the
    text-700/300 used by the button label. */
-.fi-btn.fi-outlined.fi-color svg,
-.fi-icon-btn.fi-outlined.fi-color svg {
+.fi-btn.fi-btn-outlined svg,
+.fi-icon-btn.fi-btn-outlined svg {
     color: currentColor !important;
 }
 
@@ -775,36 +774,8 @@ html::-webkit-scrollbar-thumb:hover,
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* FIX 1 + FIX 3 — desktop-only (>= lg breakpoint, 1024px).
-   On mobile Filament renders the sidebar as a slide-in drawer; pinning the
-   wrapper to 81px on small screens would steal layout space without showing
-   the icons and shove the topbar hamburger off-screen. */
-@media (min-width: 1024px) {
-    /* FIX 1 — Livewire wrapper around the sidebar — fixed positioning
-       min-width prevents collapse during Livewire morphing when :has() loses match */
-    div:has(> aside.fi-sidebar) {
-        display: flex !important;
-        position: fixed !important;
-        inset-block: 0 !important;
-        inset-inline-start: 0 !important;
-        margin-top: 64px !important;
-        z-index: 30;
-        min-width: 81px;
-    }
-
-    /* FIX 3 — Push main content right when sidebar open (320px) or collapsed (81px).
-       Scoped via body class so guest/login pages without sidebar are unaffected. */
-    .fi-body-has-sidebar-collapsible-on-desktop .fi-main-ctn,
-    .fi-body-has-sidebar-fully-collapsible-on-desktop .fi-main-ctn {
-        margin-inline-start: 81px !important;
-    }
-
-    .fi-body-has-sidebar-collapsible-on-desktop .fi-main-ctn.fi-main-ctn-sidebar-open,
-    .fi-body-has-sidebar-fully-collapsible-on-desktop .fi-main-ctn.fi-main-ctn-sidebar-open,
-    .fi-main-ctn-sidebar-open {
-        margin-inline-start: 320px !important;
-    }
-}
+/* FIX 1 + FIX 3 (Filament 4/5 only): Filament 3 keeps the sidebar in the normal flex flow, so it
+   needs neither the fixed wrapper nor the main-content margin push. */
 
 /* FIX 5 — Reserve scrollbar space to eliminate horizontal layout shifts */
 html {
@@ -1091,4 +1062,4 @@ html {
     .login-preview-frame { animation: none; }
 }
 
-} /* end @layer components */
+

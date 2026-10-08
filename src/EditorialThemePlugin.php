@@ -232,8 +232,8 @@ class EditorialThemePlugin implements Plugin
     public function register(Panel $panel): void
     {
         $panel->colors([
-            'primary' => $this->primaryColor !== [] ? $this->primaryColor : self::PRIMARY,
-            'gray' => $this->grayColor !== [] ? $this->grayColor : self::GRAY,
+            'primary' => self::toRgb($this->primaryColor !== [] ? $this->primaryColor : self::PRIMARY),
+            'gray' => self::toRgb($this->grayColor !== [] ? $this->grayColor : self::GRAY),
         ]);
 
         if ($this->logo !== null) {
@@ -293,6 +293,23 @@ class EditorialThemePlugin implements Plugin
         $css = implode(' ', array_map(fn (string $name, string $value) => "{$name}: {$value};", array_keys($tokens), $tokens));
 
         return "<style>:root, .fi-body { {$css} }</style>";
+    }
+
+    /**
+     * Filament 3 expects palette shades as "r, g, b" strings (what Color::Amber holds); hex shades are converted.
+     *
+     * @param  array<int|string, string>  $palette
+     * @return array<int|string, string>
+     */
+    public static function toRgb(array $palette): array
+    {
+        return array_map(function (string $shade): string {
+            if (preg_match('/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i', $shade, $m) !== 1) {
+                return $shade;
+            }
+
+            return hexdec($m[1]).', '.hexdec($m[2]).', '.hexdec($m[3]);
+        }, $palette);
     }
 
     public function boot(Panel $panel): void
