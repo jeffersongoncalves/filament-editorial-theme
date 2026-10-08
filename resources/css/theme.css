@@ -1001,6 +1001,25 @@ html:not(.dark) .fi-simple-layout {
     font-size: 11px; color: var(--text-dim);
 }
 
+.login-theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    padding: 2px;
+    border-radius: 4px;
+    color: var(--text-dim);
+    transition: color 120ms;
+}
+.login-theme-toggle:hover,
+.login-theme-toggle:focus-visible {
+    color: var(--accent);
+}
+.login-theme-toggle-icon {
+    width: 14px;
+    height: 14px;
+}
+
 .login-terminal-dot {
     width: 10px; height: 10px;
     border-radius: 50%;
@@ -1022,6 +1041,10 @@ html:not(.dark) .fi-simple-layout {
 .login-form {
     margin-top: 18px;
     font-family: var(--font-sans);
+}
+
+.login-form-after {
+    margin-top: 16px;
 }
 
 .login-terminal-status {

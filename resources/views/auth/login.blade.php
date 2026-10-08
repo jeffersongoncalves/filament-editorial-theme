@@ -11,6 +11,20 @@
                 <span class="login-terminal-dot" style="background: #86C682;"></span>
                 <span style="margin-left: 8px;">~/admin — zsh</span>
                 <span style="margin-left: auto; color: var(--color-ink-600);">{{ now()->format('H:i') }}</span>
+                @if (filament()->hasDarkMode() && ! filament()->hasDarkModeForced())
+                    {{-- Same event as Filament's theme switcher: the choice is stored and applies to the whole panel. --}}
+                    <button
+                        type="button"
+                        class="login-theme-toggle"
+                        x-data
+                        x-on:click="$dispatch('theme-changed', $store.theme === 'dark' ? 'light' : 'dark')"
+                        title="{{ __('filament-panels::layout.actions.theme_switcher.label') }}"
+                        aria-label="{{ __('filament-panels::layout.actions.theme_switcher.label') }}"
+                    >
+                        <x-filament::icon icon="heroicon-m-sun" x-show="$store.theme === 'dark'" x-cloak class="login-theme-toggle-icon" />
+                        <x-filament::icon icon="heroicon-m-moon" x-show="$store.theme !== 'dark'" x-cloak class="login-theme-toggle-icon" />
+                    </button>
+                @endif
             </div>
 
             <div class="login-terminal-body">
@@ -35,8 +49,12 @@
                     </div>
                 </form>
 
-                {{-- Plugins hook in here (developer logins, social login buttons...). --}}
-                {{ \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, scopes: $this->getRenderHookScopes()) }}
+                {{-- Plugins hook in here (developer logins, social login buttons...); spaced from the button
+                     only when something is rendered, so an empty hook doesn't add a gap. --}}
+                @php($loginFormAfter = (string) \Filament\Support\Facades\FilamentView::renderHook(\Filament\View\PanelsRenderHook::AUTH_LOGIN_FORM_AFTER, scopes: $this->getRenderHookScopes()))
+                @if (filled(trim($loginFormAfter)))
+                    <div class="login-form-after">{!! $loginFormAfter !!}</div>
+                @endif
 
                 <div class="login-terminal-status">
                     <span class="editorial-pulse"></span>
