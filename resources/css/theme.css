@@ -10,7 +10,7 @@
    FONT FACES
    Paths are relative to this CSS file. When loaded via Vite from
    vendor/jeffersongoncalves/filament-editorial-theme/resources/css/theme.css,
-   they resolve to ../fonts/*.ttf inside the package and are emitted
+   they resolve to ../fonts/*.woff2 inside the package and are emitted
    as hashed assets by Vite's asset pipeline.
    ============================================================ */
 
@@ -19,7 +19,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('../fonts/dmsans_400.ttf') format('truetype');
+    src: url('../fonts/dmsans_400.woff2') format('woff2');
 }
 
 @font-face {
@@ -27,7 +27,7 @@
     font-style: normal;
     font-weight: 500;
     font-display: swap;
-    src: url('../fonts/dmsans_500.ttf') format('truetype');
+    src: url('../fonts/dmsans_500.woff2') format('woff2');
 }
 
 @font-face {
@@ -35,7 +35,7 @@
     font-style: italic;
     font-weight: 300;
     font-display: swap;
-    src: url('../fonts/fraunces_italic_300.ttf') format('truetype');
+    src: url('../fonts/fraunces_italic_300.woff2') format('woff2');
 }
 
 @font-face {
@@ -43,7 +43,7 @@
     font-style: italic;
     font-weight: 400;
     font-display: swap;
-    src: url('../fonts/fraunces_italic_400.ttf') format('truetype');
+    src: url('../fonts/fraunces_italic_400.woff2') format('woff2');
 }
 
 @font-face {
@@ -51,7 +51,7 @@
     font-style: italic;
     font-weight: 600;
     font-display: swap;
-    src: url('../fonts/fraunces_italic_600.ttf') format('truetype');
+    src: url('../fonts/fraunces_italic_600.woff2') format('woff2');
 }
 
 @font-face {
@@ -59,7 +59,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url('../fonts/jetbrains_400.ttf') format('truetype');
+    src: url('../fonts/jetbrains_400.woff2') format('woff2');
 }
 
 @font-face {
@@ -67,7 +67,7 @@
     font-style: normal;
     font-weight: 500;
     font-display: swap;
-    src: url('../fonts/jetbrains_500.ttf') format('truetype');
+    src: url('../fonts/jetbrains_500.woff2') format('woff2');
 }
 
 @theme {
