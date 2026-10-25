@@ -22,5 +22,6 @@
 *.md diff=markdown
 *.php diff=php
 *.ttf binary
+*.woff2 binary
 
 CHANGELOG.md export-ignore
