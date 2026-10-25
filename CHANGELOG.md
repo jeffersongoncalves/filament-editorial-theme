@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.5.0 - 2026-10-24
+
+The seven bundled fonts (DM Sans 400/500, Fraunces italic 300/400/600, JetBrains Mono 400/500) now ship as WOFF2 subset to Latin, punctuation, arrows and shapes, instead of uncompressed TTF: about 572 KB down to 166 KB on the first panel load. The theme CSS references only .woff2 files and the .ttf files are gone. Rebuild your theme after updating (pnpm run build). Closes #7.
+
 ## 2.4.0 - 2026-10-08
 
 The terminal login no longer types out its lines after the page loads: the prompt lines and form render right away (the blinking cursor stays). Removed the now-unused intro config keys: session_key, type_speed_ms, pause_after_ms, start_delay_ms.
