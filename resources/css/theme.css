@@ -563,6 +563,18 @@ html:not(.dark) .fi-body {
     color: var(--text-on-accent) !important;
 }
 
+/* Gray / uncolored icon buttons (e.g. record-actions ⋮ trigger). Filament
+   default gray-500 vanishes on the ink-950 surface in dark mode. */
+.fi-icon-btn:not(.fi-color),
+.fi-icon-btn.fi-color-gray {
+    color: var(--text-muted) !important;
+}
+.fi-icon-btn:not(.fi-color):not(.fi-disabled):not([disabled]):hover,
+.fi-icon-btn.fi-color-gray:not(.fi-disabled):not([disabled]):hover {
+    color: var(--text-strong) !important;
+    background: var(--surface-button-gray) !important;
+}
+
 /* Outlined buttons: icon inherits text color (currentColor) instead of
    Filament default `var(--color-600)` so amber-outlined icon matches the
    text-700/300 used by the button label. */
