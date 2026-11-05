@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.5.1 - 2026-11-05
+
+### Fixed\n- Gray icon buttons (e.g. table record-actions dropdown trigger) are now visible in dark mode (#13).
+
 ## 2.5.0 - 2026-10-24
 
 The seven bundled fonts (DM Sans 400/500, Fraunces italic 300/400/600, JetBrains Mono 400/500) now ship as WOFF2 subset to Latin, punctuation, arrows and shapes, instead of uncompressed TTF: about 572 KB down to 166 KB on the first panel load. The theme CSS references only .woff2 files and the .ttf files are gone. Rebuild your theme after updating (pnpm run build). Closes #7.
