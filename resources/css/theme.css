@@ -556,11 +556,11 @@ html:not(.dark) .fi-body {
    color because their bg is the amber accent. Outlined-primary keeps text
    color (handled below) so the icon doesn't go ink-950 on a transparent bg. */
 .fi-btn-color-primary:not(.fi-btn-outlined) svg,
-.fi-icon-btn-color-primary:not(.fi-btn-outlined) svg,
-.fi-btn.fi-color-primary:not(.fi-btn-outlined) svg,
-.fi-icon-btn.fi-color-primary:not(.fi-btn-outlined) svg {
+.fi-btn.fi-color-primary:not(.fi-btn-outlined) svg {
     color: var(--text-on-accent) !important;
 }
+/* Icon buttons have no accent fill: the on-accent ink would be dark-on-dark
+   (e.g. the primary record-actions ⋮ trigger). Keep the button's own color. */
 
 /* Gray icon buttons (e.g. record-actions ⋮ trigger). Filament default gray
    vanishes on the ink-950 surface in dark mode. Filament 3 has no `.fi-color`
