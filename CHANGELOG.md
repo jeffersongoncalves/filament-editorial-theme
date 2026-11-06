@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## 2.5.2 - 2026-11-05
+
+### Fixed
+
+- Primary icon buttons (e.g. table record-actions dropdown trigger) are now visible in dark mode: the on-accent svg color applies only to solid buttons, which have the amber fill (#14).
+
 ## 2.5.1 - 2026-11-05
 
 ### Fixed\n- Gray icon buttons (e.g. table record-actions dropdown trigger) are now visible in dark mode (#13).
